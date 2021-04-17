@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Discipline;
-use App\Http\Resources\DisciplineResource;
 use App\Http\Resources\LectureResource;
-use App\Http\Resources\UserResource;
-use App\User;
+use App\Lecture;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class LectureController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return response([ 'users' => UserResource::collection($users), 'message' => 'Retrieved successfully'], 200);
-
+        //
     }
 
     /**
@@ -43,7 +38,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $lecture = Lecture::find($id);
+        return response(['lecture' => new LectureResource($lecture), 'message' => 'Retrieved successfully'], 200);
     }
 
     /**
@@ -67,20 +63,5 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function getDisciplines(){
-        $user = User::find(auth()->user()->id);
-        $userDisciplines = $user->disciplines;
-        $disciplines = collect();
-        foreach ($userDisciplines as $userDiscipline){
-             $disciplines->push($userDiscipline->discipline);
-        }
-        return response(['userDisciplines' => DisciplineResource::collection($disciplines)]);
-    }
-    public function getLectures($disciplineId){
-        $discipline = Discipline::find($disciplineId);
-        $disciplineLectures = $discipline->disciplineLectures;
-        return response(['userLectures' => LectureResource::collection($disciplineLectures)]);
     }
 }

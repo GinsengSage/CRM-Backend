@@ -20,6 +20,6 @@ class Discipline extends Model
 
     public function disciplineLectures()
     {
-        return $this->hasMany(UserDiscipline::class);
+        return $this->hasMany(Lecture::class);
     }
 }

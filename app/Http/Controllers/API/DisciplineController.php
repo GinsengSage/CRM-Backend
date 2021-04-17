@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Discipline;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DisciplineResource;
+use App\Lecture;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -80,5 +81,11 @@ class DisciplineController extends Controller
                 return response(['teacher' => $user, 'message' => 'Retrieved successfully'], 200);;
             }
         }
+    }
+
+    public function getId($lectureId){
+        $lecture = Lecture::find($lectureId);
+        $discipline = $lecture->discipline;
+        return response(['id' => $discipline->id,'message' => 'Retrieved successfully'], 200);
     }
 }

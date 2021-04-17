@@ -15,7 +15,14 @@ class CreateLecturesTable extends Migration
     {
         Schema::create('lectures', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->string('name');
+            $table->unsignedBigInteger('discipline_id');
+            $table->foreign('discipline_id')
+                ->references('id')->on('disciplines')
+                ->onDelete('cascade');
+            $table->date('date');
+            $table->text('text');
+            $table->string('image');
         });
     }
 

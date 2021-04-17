@@ -25,18 +25,25 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::prefix('disciplines')->group(function () {
         Route::get('/', 'API\DisciplineController@index');
         Route::get('/getTeacher/{id}', 'API\DisciplineController@getTeacher');
+        Route::get('/getId/{lectureId}', 'API\DisciplineController@getId');
 //    Route::get('articles/{article}', 'ArticleController@show');
 //    Route::post('articles', 'ArticleController@store');
 //    Route::put('articles/{article}', 'ArticleController@update');
 //    Route::delete('articles/{article}', 'ArticleController@delete');
     });
+    //User
     Route::prefix('users')->group(function () {
         Route::get('/', 'API\UserController@index');
         Route::get('getDisciplines', 'API\UserController@getDisciplines');
+        Route::get('getLectures/{disciplineId}', 'API\UserController@getLectures');
 //    Route::get('articles/{article}', 'ArticleController@show');
 //    Route::post('articles', 'ArticleController@store');
 //    Route::put('articles/{article}', 'ArticleController@update');
 //    Route::delete('articles/{article}', 'ArticleController@delete');
+    });
+    //Lectures
+    Route::prefix('lectures')->group(function () {
+        Route::get('getLecture/{id}', 'API\LectureController@show');
     });
 });
 
