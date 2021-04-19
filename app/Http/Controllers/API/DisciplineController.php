@@ -86,6 +86,7 @@ class DisciplineController extends Controller
     public function getId($lectureId){
         $lecture = Lecture::find($lectureId);
         $discipline = $lecture->discipline;
-        return response(['id' => $discipline->id,'message' => 'Retrieved successfully'], 200);
+        return response(['disciplineId' => $discipline->id,'message' => 'Retrieved successfully'], 200);
     }
+
 }

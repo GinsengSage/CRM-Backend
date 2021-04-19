@@ -83,4 +83,9 @@ class UserController extends Controller
         $disciplineLectures = $discipline->disciplineLectures;
         return response(['userLectures' => LectureResource::collection($disciplineLectures)]);
     }
+    public function getTasks($disciplineId){
+        $discipline = Discipline::find($disciplineId);
+        $disciplineLectures = $discipline->disciplineLectures;
+        return response(['userLectures' => LectureResource::collection($disciplineLectures)]);
+    }
 }

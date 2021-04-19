@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Resources\LectureResource;
-use App\Lecture;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class LectureController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,8 +36,7 @@ class LectureController extends Controller
      */
     public function show($id)
     {
-        $lecture = Lecture::find($id);
-        return response(['lecture' => new LectureResource($lecture), 'message' => 'Retrieved successfully'], 200);
+        //
     }
 
     /**
@@ -64,6 +61,4 @@ class LectureController extends Controller
     {
         //
     }
-
-
 }

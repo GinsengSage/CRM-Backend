@@ -42,4 +42,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserDiscipline::class);
     }
+
+    public function tasks()
+    {
+        return $this->hasMany(UserTask::class);
+    }
 }

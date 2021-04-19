@@ -36,14 +36,15 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::get('/', 'API\UserController@index');
         Route::get('getDisciplines', 'API\UserController@getDisciplines');
         Route::get('getLectures/{disciplineId}', 'API\UserController@getLectures');
-//    Route::get('articles/{article}', 'ArticleController@show');
-//    Route::post('articles', 'ArticleController@store');
-//    Route::put('articles/{article}', 'ArticleController@update');
-//    Route::delete('articles/{article}', 'ArticleController@delete');
+        Route::get('getTasks/{disciplineId}', 'API\UserController@getTasks');
     });
     //Lectures
     Route::prefix('lectures')->group(function () {
         Route::get('getLecture/{id}', 'API\LectureController@show');
+    });
+    //Tasks
+    Route::prefix('tasks')->group(function () {
+        Route::get('getTask/{id}', 'API\TaskController@show');
     });
 });
 
