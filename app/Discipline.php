@@ -22,4 +22,9 @@ class Discipline extends Model
     {
         return $this->hasMany(Lecture::class);
     }
+
+    public function disciplineTasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }

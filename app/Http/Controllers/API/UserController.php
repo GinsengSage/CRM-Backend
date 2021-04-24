@@ -5,8 +5,11 @@ namespace App\Http\Controllers\API;
 use App\Discipline;
 use App\Http\Resources\DisciplineResource;
 use App\Http\Resources\LectureResource;
+use App\Http\Resources\TaskResource;
 use App\Http\Resources\UserResource;
+use App\Task;
 use App\User;
+use App\UserTask;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -78,14 +81,20 @@ class UserController extends Controller
         }
         return response(['userDisciplines' => DisciplineResource::collection($disciplines)]);
     }
+
     public function getLectures($disciplineId){
         $discipline = Discipline::find($disciplineId);
         $disciplineLectures = $discipline->disciplineLectures;
         return response(['userLectures' => LectureResource::collection($disciplineLectures)]);
     }
-    public function getTasks($disciplineId){
-        $discipline = Discipline::find($disciplineId);
-        $disciplineLectures = $discipline->disciplineLectures;
-        return response(['userLectures' => LectureResource::collection($disciplineLectures)]);
+
+    public function getTasks(){
+        $user = User::find(auth()->user()->id);
+        $tasks = Task::join('user_tasks', 'user_tasks.task_id', '=', 'tasks.id')
+            ->join('disciplines', 'tasks.discipline_id', '=', 'disciplines.id')
+            ->where('user_tasks.user_id', $user->id)
+            ->get(['tasks.*', 'disciplines.name as disciplineName', 'user_tasks.status', 'user_tasks.score', 'user_tasks.file']);
+
+        return response(['userTasks' => TaskResource::collection($tasks)]);
     }
 }

@@ -25,7 +25,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::prefix('disciplines')->group(function () {
         Route::get('/', 'API\DisciplineController@index');
         Route::get('/getTeacher/{id}', 'API\DisciplineController@getTeacher');
-        Route::get('/getId/{lectureId}', 'API\DisciplineController@getId');
+        Route::get('/getIdByLectureId/{lectureId}', 'API\DisciplineController@getIdByLectureId');
+        Route::get('/getIdByTaskId/{taskId}', 'API\DisciplineController@getIdByTaskId');
+        Route::get('/getName/{id}', 'API\DisciplineController@getName');
 //    Route::get('articles/{article}', 'ArticleController@show');
 //    Route::post('articles', 'ArticleController@store');
 //    Route::put('articles/{article}', 'ArticleController@update');
@@ -36,15 +38,19 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::get('/', 'API\UserController@index');
         Route::get('getDisciplines', 'API\UserController@getDisciplines');
         Route::get('getLectures/{disciplineId}', 'API\UserController@getLectures');
-        Route::get('getTasks/{disciplineId}', 'API\UserController@getTasks');
+        Route::get('getTasks', 'API\UserController@getTasks');
     });
     //Lectures
     Route::prefix('lectures')->group(function () {
         Route::get('getLecture/{id}', 'API\LectureController@show');
+        Route::post('createLecture', 'API\LectureController@store');
     });
     //Tasks
     Route::prefix('tasks')->group(function () {
         Route::get('getTask/{id}', 'API\TaskController@show');
+        Route::get('getDisciplineTasks/{disciplineId}', 'API\TaskController@getDisciplineTasks');
+        Route::post('createTask', 'API\TaskController@store');
+        Route::delete('removeTask', 'API\TaskController@destroy');
     });
 });
 

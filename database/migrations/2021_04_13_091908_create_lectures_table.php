@@ -20,8 +20,7 @@ class CreateLecturesTable extends Migration
             $table->foreign('discipline_id')
                 ->references('id')->on('disciplines')
                 ->onDelete('cascade');
-            $table->date('date');
-            $table->text('text');
+            $table->string('date');
             $table->string('image');
             $table->string('file');
         });

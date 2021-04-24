@@ -6,6 +6,7 @@ use App\Discipline;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DisciplineResource;
 use App\Lecture;
+use App\Task;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -83,10 +84,21 @@ class DisciplineController extends Controller
         }
     }
 
-    public function getId($lectureId){
+    public function getIdByLectureId($lectureId){
         $lecture = Lecture::find($lectureId);
         $discipline = $lecture->discipline;
         return response(['disciplineId' => $discipline->id,'message' => 'Retrieved successfully'], 200);
+    }
+
+    public function getIdByTaskId($taskId){
+        $task = Task::find($taskId);
+        $discipline = $task->discipline;
+        return response(['disciplineId' => $discipline->id,'message' => 'Retrieved successfully'], 200);
+    }
+
+    public function getName($id){
+        $task = Discipline::find($id);
+        return response(['name' => $task->name,'message' => 'Retrieved successfully'], 200);
     }
 
 }

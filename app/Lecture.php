@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Lecture extends Model
 {
     protected $fillable = [
-        'id', 'name', 'discipline_id', 'text', 'date', 'image', 'file'
+        'id', 'name', 'discipline_id', 'date', 'image', 'file'
     ];
+
+    public $timestamps = false;
 
     public function discipline()
     {
