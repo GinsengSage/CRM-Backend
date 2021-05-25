@@ -4,16 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserTask extends Model
+class Notification extends Model
 {
-
     protected $fillable = [
         'id',
+        'name',
+        'discipline_id',
         'task_id',
+        'student_id',
         'user_id',
-        'status',
-        'score',
-        'file'
+        'text',
+        'checked',
+        'rated',
+        'date'
     ];
 
     public $timestamps = false;
@@ -23,8 +26,8 @@ class UserTask extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function task()
+    public function discipline()
     {
-        return $this->belongsTo(Task::class);
+        return $this->belongsTo(Discipline::class);
     }
 }

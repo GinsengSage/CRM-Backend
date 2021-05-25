@@ -21,7 +21,6 @@ class CreateLecturesTable extends Migration
                 ->references('id')->on('disciplines')
                 ->onDelete('cascade');
             $table->string('date');
-            $table->string('image');
             $table->string('file');
         });
     }

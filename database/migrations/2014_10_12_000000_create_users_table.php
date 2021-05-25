@@ -20,6 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('status');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->integer('course');
+            $table->integer('group');
+            $table->float('average_score');
             $table->rememberToken();
             $table->timestamps();
         });

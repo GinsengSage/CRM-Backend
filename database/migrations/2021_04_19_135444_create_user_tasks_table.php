@@ -24,7 +24,7 @@ class CreateUserTasksTable extends Migration
                 ->references('id')->on('tasks')
                 ->onDelete('cascade');
             $table->string('status');
-            $table->string('score');
+            $table->float('score');
             $table->string('file');
         });
     }

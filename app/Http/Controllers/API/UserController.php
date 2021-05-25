@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Discipline;
+use App\Http\Controllers\DocxController;
 use App\Http\Resources\DisciplineResource;
 use App\Http\Resources\LectureResource;
 use App\Http\Resources\TaskResource;
@@ -12,6 +13,7 @@ use App\User;
 use App\UserTask;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class UserController extends Controller
 {
@@ -85,6 +87,7 @@ class UserController extends Controller
     public function getLectures($disciplineId){
         $discipline = Discipline::find($disciplineId);
         $disciplineLectures = $discipline->disciplineLectures;
+
         return response(['userLectures' => LectureResource::collection($disciplineLectures)]);
     }
 
@@ -96,5 +99,29 @@ class UserController extends Controller
             ->get(['tasks.*', 'disciplines.name as disciplineName', 'user_tasks.status', 'user_tasks.score', 'user_tasks.file']);
 
         return response(['userTasks' => TaskResource::collection($tasks)]);
+    }
+
+    public function  getStudentsByTeacher(){
+        $id = auth()->user()->id;
+        $teacher = User::find($id);
+        $teacherDisciplines = $teacher->disciplines;
+        $students = collect();
+        foreach ($teacherDisciplines as $teacherDiscipline){
+            $discipline = $teacherDiscipline->discipline;
+            $disciplineStudents = $discipline->disciplineUsers;
+            foreach ($disciplineStudents as $disciplineStudent){
+                $student = $disciplineStudent->user;
+                if($student->status === 'Student'){
+                    $students->push($student);
+                }
+            }
+        }
+        return response(['students' => UserResource::collection($students)]);
+    }
+
+    public function getNotifications(){
+        $user = User::find(auth()->user()->id);
+        $notifications = $user->notifications;
+        return response(['userNotifications' => TaskResource::collection($notifications)]);
     }
 }

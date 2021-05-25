@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTasksTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,23 @@ class CreateTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('discipline_id');
             $table->foreign('discipline_id')
                 ->references('id')->on('disciplines')
                 ->onDelete('cascade');
-            $table->string('date_start');
-            $table->string('date_end');
-            $table->string('file');
+            $table->integer('task_id');
+            $table->integer('student_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+            $table->text('text');
+            $table->boolean('rated');
+            $table->string('date');
+            $table->boolean('checked');
         });
     }
 
@@ -33,6 +40,6 @@ class CreateTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('notifications');
     }
 }
