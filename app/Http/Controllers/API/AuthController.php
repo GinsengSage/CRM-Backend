@@ -8,7 +8,6 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 
 
-
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -17,6 +16,9 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'email|required|unique:users',
             'status' => 'required',
+            'course' => 'required',
+            'group' => 'required',
+            'average_score' => 'required',
             'password' => 'required'
         ]);
 
